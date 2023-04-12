@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const controllers = require("../controllers");
+const db = require('../db')
 const checkAuth = require("../middleware/auth");
 
 router.get("/", async ({ session: { isLoggedIn } }, res) => {
@@ -28,7 +29,18 @@ router.get("/private", checkAuth, ({ session: { isLoggedIn } }, res) => {
 
 router.get('/work/:id', async (req, res) => {
   const [[work]] = await db.query(
-    'SELECT * FROM artwork WHERE id=?;',
+    `SELECT
+    artist.name AS artist_name,
+    artwork.name AS name,
+    artwork.image AS image,
+    artwork.description AS description,
+    artwork.medium AS med,
+    artwork.year AS year,
+    artwork.location AS loc,
+    artwork.collection AS coll
+    FROM artist
+    INNER JOIN artwork ON artist.id=artwork.artist_id
+    WHERE artwork.id=?;`,
     [req.params.id]
   )
   res.render('work', {work})

@@ -5,6 +5,7 @@ const checkAuth = require("../middleware/auth");
 
 router.get("/", async ({ session: { isLoggedIn } }, res) => {
   const [rows] = await db.query(`SELECT
+  artwork.id AS id,
   artist.name AS artist_name,
   artwork.name AS name,
   artwork.image AS image
@@ -31,6 +32,7 @@ router.get('/work/:id', async (req, res) => {
   const [[work]] = await db.query(
     `SELECT
     artist.name AS artist_name,
+    artwork.artist_id AS artist_id,
     artwork.name AS name,
     artwork.image AS image,
     artwork.description AS description,
@@ -46,16 +48,17 @@ router.get('/work/:id', async (req, res) => {
   res.render('work', {work})
 })
 
-router.get('/artist/:artist', async (req, res) => {
+router.get('/artist/:id', async (req, res) => {
   const [[rows]] = await db.query(
     `SELECT
+    artwork.id AS id,
     artist.name AS artist_name,
     artwork.name AS name,
     artwork.image AS image
     FROM artist
     INNER JOIN artwork ON artist.id=artwork.artist_id
-    WHERE artist.name=?;`,
-    [req.params.artist]
+    WHERE artist.id=?;`,
+    [req.params.id]
   )
   res.render('index', {rows})
 })

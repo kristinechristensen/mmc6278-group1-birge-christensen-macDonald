@@ -1,3 +1,5 @@
+CREATE DATABASE IF NOT EXISTS mysql_project_db;
+
 USE mysql_project_db;
 
 CREATE TABLE users (
@@ -8,7 +10,7 @@ CREATE TABLE users (
 
 CREATE TABLE artist (
   id INT PRIMARY KEY AUTO_INCREMENT NOT NULL, 
-  name VARCHAR(200) NOT NULL, 
+  name VARCHAR(200) NOT NULL 
 ); 
 
 CREATE TABLE artwork (
@@ -32,7 +34,7 @@ CREATE TABLE favorites (
    user_id INT NOT NULL, 
    FOREIGN KEY (artwork_id)
     REFERENCES artwork(id)
-    ON DELETE CASCADE
+    ON DELETE CASCADE,
   FOREIGN KEY (user_id)
     REFERENCES users (id)
     ON DELETE CASCADE ON UPDATE CASCADE

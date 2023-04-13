@@ -1,7 +1,7 @@
 const router = require("express").Router();
 const controllers = require("../controllers");
-const db = require('../db')
 const checkAuth = require("../middleware/auth");
+const db = require('../db')
 
 router.get("/", async ({ session: { isLoggedIn } }, res) => {
   const [rows] = await db.query(`SELECT

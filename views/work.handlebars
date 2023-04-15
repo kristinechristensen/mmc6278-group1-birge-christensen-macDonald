@@ -1,0 +1,18 @@
+{{> header}}
+<main>
+  <section id="artwork-container">
+    <!-- replace with product image and name -->
+    <img src="/images/{{work.image}}" alt="{{work.name}}"/>
+        <h2>{{work.name}}</h2>
+        <a href="/artist/{{work.artist_id}}"><h3>{{work.artist_name}}</h3></a>
+        <h4>{{work.year}}</h4>
+        <p>{{work.description}}</p>
+        <p>Medium: {{work.med}}</p>
+        <p>Location: {{work.loc}}</p>
+        <p>Collection: {{work.coll}}</p>
+  </section>
+  <a href="/" id="returnToStore">Return to Main Gallery</a>
+</main>
+<footer>
+  <p>&copy; Art Repo</p>
+</footer>

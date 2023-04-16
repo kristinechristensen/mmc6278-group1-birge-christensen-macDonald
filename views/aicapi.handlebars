@@ -1,6 +1,24 @@
 {{> header}}
   <main>
     <h2>Sample Works from Chicago Art Institute</h2>
+    <section id="items">
+      {{#each rows}}
+      <a class="sale-item">
+        <div class="item-img-container">
+          <img src= {{thumbnail.lqip}} srcset={{thumbnail.lqip}} alt='{{thumbnail.alt_text}}' />
+        </div>
+        <!--<p>{{name}}</p> -->
+        <h3>{{title}}</h3>
+        <p>Artist: {{artist_display}}</p>
+        <p>Date Range on display: {{date_display}}</p>
+        {{#if publication_history}}
+        <p>Publication History:</p>
+        <p>{{publication_history}}</p>
+        {{/if}}
+
+      </a>
+      {{/each}}
+    </section>
   </main>
   <footer>
     <p>&copy; Art Repo</p>

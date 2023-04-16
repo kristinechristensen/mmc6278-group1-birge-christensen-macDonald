@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const controllers = require("../controllers");
+const request = require('request');
 const checkAuth = require("../middleware/auth");
 const db = require('../db')
 
@@ -46,7 +47,7 @@ router.get('/work/:id', async (req, res) => {
     [req.params.id]
   )
   res.render('work', {work})
-})
+});
 
 router.get('/artist/:id', async (req, res) => {
   const [rows] = await db.query(
@@ -61,6 +62,14 @@ router.get('/artist/:id', async (req, res) => {
     [req.params.id]
   )
   res.render('index', {rows})
-})
+});
+
+router.get("/aicapi", async (req, res) => {
+  request({
+    uri: 'https://api.artic.edu/api/v1/artworks?fields=id,title,artist_display,date_display,main_reference_numberpage=2&limit=2',
+  }).pipe(res);
+  //.render('aicapi');
+  
+});
 
 module.exports = router;

@@ -8,11 +8,11 @@ router.get("/logout", controllers.auth.logout);
 router.post("/signup", controllers.user.create);
 
 
-router.get('/', function(req, res, next) {
-    request({
-      uri: 'https://api.artic.edu/api/v1/artworks?page=2&limit=100',
-    }).pipe(res);
-  });
+// router.get('/', function(req, res, next) {
+//     request({
+//       uri: 'https://api.artic.edu/api/v1/artworks?page=2&limit=100',
+//     }).pipe(res);
+//   });
 
 
 module.exports = router;

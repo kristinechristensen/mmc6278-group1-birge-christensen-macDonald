@@ -1,11 +1,17 @@
 <header>
   <a class="site-logo" href="/">
-    The Art Repo
+    Gallery Walk - Find Your Favorites
   </a>
+ <div class="header-links">
   {{#if isLoggedIn}}
+  <div class="header-links">
+    {{#if favoritesCount}}
+    <a href="/favorites" class="favoritesLink">Favorites ({{favoritesCount}}) </a> {{/if}}
     <a href="/api/logout">Logout</a>
+  </div>
   {{else}}
     <a href="/login">Login</a>
     <a href="/signup">Sign Up</a>
   {{/if}}
+</div>
 </header>

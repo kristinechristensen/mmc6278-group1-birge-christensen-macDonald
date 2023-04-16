@@ -1,11 +1,11 @@
 :root {
-  --black: #020303;
+  --black: #020303a8;
   --dark-grey: #171c1c;
   --light-grey: #a7b9b7;
   --primary: #5cc1bb;
-  --primary-dark: #41aaa3;
-  --secondary: hsl(15deg 100% 62%);
-  --secondary-light: hsl(15deg 100% 70%);
+  --primary-dark: #333;
+  --secondary: #ffffff;
+  --secondary-light: #800000;
   --text-color: #f5fffe;
   --space: 16px;
   --font-size: 18px;
@@ -50,12 +50,14 @@ h3 {
 }
 
 a {
-  color: var(--secondary-light);
+  color: var(--secondary);
+  font-weight:bold;
+  text-decoration:none;
   transition: color 200ms;
 }
 a:hover,
 a:focus {
-  color: var(--secondary);
+  color: var(--secondary-light);
 }
 
 button.btn {
@@ -82,6 +84,16 @@ button.btn-text:hover,
 button.btn-text:focus {
   color: var(--secondary);
 }
+
+footer {
+margin-top:20px;
+
+
+width:100%;
+background-color: var(--black);
+color: var(--secondary);
+}
+
 header {
   display: flex;
   flex-wrap: wrap;
@@ -129,7 +141,10 @@ header .site-logo {
   display:flex;
   justify-content: space-around;
   flex-wrap: wrap;
-  gap: calc(var(--space) * 5) calc(var(--space) * 4);
+  gap: calc(var(--space) * 2) calc(var(--space) * 4);
+}
+.workImg {
+  width:50%;
 }
 
 .item-img-container img {

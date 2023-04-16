@@ -1,0 +1,29 @@
+{{> header}}
+
+  <main>
+    <div id="artistName" style="display:block; margin-bottom:20px; text-align:center">
+   {{#each artist}}
+      <h2>About {{artist_name}}</h2>
+      <p style="text-align:left;">{{artist_bio}}</p> 
+      <!-- this is repeating for multiple artists. I tried various helpers in handlebars -->
+   {{/each}}
+    </div>
+   <section id="workItems">  
+      {{#each artist}}
+      
+      <div item-img-container">
+      
+        <div class="item-img-container" style="text-align:center">
+          <a href="/work/{{id}}" class="sale-item">
+              <img src="/images/{{image}}" title="{{artist_name}}&hearts; {{name}}" alt="{{name}}" style="margin:0 auto;"/>
+          </a>
+          </div>
+        
+     <h4 class="artworkTitle"><a href="/work/{{id}}" class="sale-item">{{name}}</a></h3>
+       </div>
+      {{/each}}
+    </section>
+    <a href="/" id="returnToStore">Return to Main Gallery</a>
+  </main>
+
+{{> footer}}

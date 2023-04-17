@@ -2,7 +2,7 @@
   --black: #020303a8;
   --dark-grey: #171c1c;
   --light-grey: #a7b9b7;
-  --primary: #5cc1bb;
+  --primary: #400000;
   --primary-dark: #333;
   --secondary: #ffffff;
   --secondary-light: #800000;
@@ -60,29 +60,42 @@ a:focus {
   color: var(--secondary-light);
 }
 
+button {
+  border: white;
+  border-radius: 4px;
+  background-color: #800000;
+  color:white;
+  padding: calc(var(--space) * 0.75) calc(var(--space) * 2);
+  cursor: pointer;
+  transition: background-color 200ms;
+}
+
+
 button.btn {
   border: var(--text-color);
   border-radius: 4px;
-  background-color: var(--secondary-light);
+  background-color: var(--primary);
   padding: calc(var(--space) * 0.75) calc(var(--space) * 2);
   cursor: pointer;
   transition: background-color 200ms;
 }
 button.btn-text {
   border: none;
+  font-weight:bold;
   background-color: transparent;
-  color: var(--secondary-light);
+  color: var(--text-color);
   transition: 200ms;
   cursor: pointer;
 }
 
-button.btn:hover,
+button.btn:hover, button:focus
 button.btn:focus {
-  background-color: var(--secondary);
+  background-color: var(--light-grey);
+  color:var(--primary)
 }
 button.btn-text:hover,
 button.btn-text:focus {
-  color: var(--secondary);
+  color: var(--primary);
 }
 
 footer {

@@ -2,7 +2,7 @@
 <main>
   <section id="artwork-container">
    <img src="/images/{{work.image}}" alt="{{work.name}}" class="workImg"/>
-   <form method="POST" action="/api/favorites?favoritesId={{artwork_id}}">
+   <form method="POST" action="/api/favoriteId={{work.id}}">
         <h2>{{work.name}}</h2>
         <a href="/artist/{{work.artist_id}}"><h3>{{work.artist_name}}</h3></a>
         <h4>{{work.year}}</h4>

@@ -2,6 +2,7 @@ const router = require("express").Router();
 const controllers = require("../controllers");
 const checkAuth = require("../middleware/auth");
 const db = require('../db');
+
 // admin login/logout
 router.post("/login", controllers.auth.login);
 router.get("/logout", controllers.auth.logout);
@@ -104,8 +105,6 @@ router
           res.status(204).end()
         else
           res.status(404).send('Art Work  not found')
-      })
-
-
+      });
 
 module.exports = router;

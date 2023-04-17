@@ -154,7 +154,10 @@ router.get('/work/:id', async (req, res) => {
 
 
 router.get('/artist/:id', async (req, res) => {
+<<<<<<< HEAD
 
+=======
+>>>>>>> a574da58fe576cbc86f05077bc0111ff6682a228
   const [artist] = await db.query(
     `SELECT
     artwork.id AS id,
@@ -201,4 +204,8 @@ res.render('favorites', {
 
 
 
+<<<<<<< HEAD
 module.exports = router;
+=======
+module.exports = router;
+>>>>>>> a574da58fe576cbc86f05077bc0111ff6682a228

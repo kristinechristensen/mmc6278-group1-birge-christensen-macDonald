@@ -154,6 +154,7 @@ router.get('/work/:id', async (req, res) => {
 
 
 router.get('/artist/:id', async (req, res) => {
+
   const [artist] = await db.query(
     `SELECT
     artwork.id AS id,

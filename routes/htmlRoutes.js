@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const controllers = require("../controllers");
+const axios = require('axios');
 const checkAuth = require("../middleware/auth");
 const db = require('../db');
 
@@ -69,7 +70,7 @@ router.get('/work/:id', async (req, res) => {
   }
 
  res.render('work', {work, data});
-})
+});
     
 
 
@@ -87,7 +88,18 @@ router.get('/artist/:id', async (req, res) => {
     [req.params.id]
   )
   res.render('byArtist', {artist})
-})
+});
+
+router.get("/aicapi", async (req, res) => {
+
+  const response = await axios.get( 'https://api.artic.edu/api/v1/artworks?page=30&limit=20')
+  console.log(response.data.data)
+  res.render('aicapi', { rows: response.data.data })
+  
+});
+
+
+
 
 /* Create routes for favorites */
 
@@ -117,13 +129,5 @@ res.render('favorites', {
    })
 });
 
-//Connecting to the AIC API
-// router.get("/aicapi", async (req, res) => {
-
-//   //const response = await axios.get('https://api.artic.edu/api/v1/artworks?page=30&limit=20')
-//   console.log(response.data.data)
-//   res.render('aicapi', { rows: response.data.data })
-  
-// });
 
 module.exports = router;

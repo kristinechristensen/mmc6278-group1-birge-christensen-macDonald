@@ -18,6 +18,8 @@ This is a prototype for an art museum or gallery wishing to provide its members 
 ## Links to Heroku & Github
 
 Heroku: https://mmc6278-group1-project.herokuapp.com/
+
+
 Github: git@github.com:kristinechristensen/mmc6278-group1-birge-christensen-macDonald.git
 
 ---

@@ -1,12 +1,11 @@
-
 <header>
   <a class="site-logo" href="/">
     Gallery Walk - Find Your Favorites
   </a>
  <div class="header-links">
-  {{#if isLoggedIn}}
+    {{#if isLoggedIn}}
   <div class="header-links">
-    <a href="/favorites" class="favoritesLink">Favorites ({{favoritesCount}}) </a> 
+    <a href="/api/favorites" class="favoritesLink">Favorites ({{favoritesCount}}) </a> 
     <a href="/api/logout">Logout</a>
   </div>
   {{else}}

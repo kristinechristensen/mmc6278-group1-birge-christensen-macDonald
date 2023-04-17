@@ -10,7 +10,9 @@ CREATE TABLE users (
 
 CREATE TABLE artist (
   id INT PRIMARY KEY AUTO_INCREMENT NOT NULL, 
-  name VARCHAR(200) NOT NULL 
+  name VARCHAR(200) NOT NULL, 
+  bio TEXT 
+  
 ); 
 
 CREATE TABLE artwork (
@@ -23,6 +25,7 @@ CREATE TABLE artwork (
   year INT, 
   location VARCHAR(100),
   collection VARCHAR(100),
+  quantity INT NOT NULL DEFAULT 1,
   FOREIGN KEY (artist_id)
     REFERENCES artist(id)
     ON DELETE CASCADE ON UPDATE CASCADE
@@ -31,6 +34,7 @@ CREATE TABLE artwork (
 CREATE TABLE favorites (
    id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
    artwork_id INT NOT NULL, 
+   quantity INT NOT NULL DEFAULT 1,
    user_id INT NOT NULL, 
    FOREIGN KEY (artwork_id)
     REFERENCES artwork(id)

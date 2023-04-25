@@ -104,6 +104,7 @@ button.btn-text:focus {
 
 footer {
 margin-top:20px;
+text-align:center;
 width:100%;
 background-color: var(--black);
 color: var(--secondary);
@@ -219,7 +220,6 @@ header .site-logo {
   max-width:300px;
   display:block;
   border:white solid 1px;
-  
   float:left;
 }
 

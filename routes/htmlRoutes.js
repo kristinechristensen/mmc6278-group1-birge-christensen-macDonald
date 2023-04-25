@@ -143,7 +143,7 @@ router.get('/artist/:id', checkAuth, async (req, res) => {
       ORDER BY RAND() LIMIT 1`      
       );
   
-  res.render('random', {random})
+  res.render('random', {isLoggedIn: req.session.isLoggedIn, random})
 });
 
 

@@ -100,14 +100,7 @@ router.get('/work/:id', checkAuth, async(req,res) => {
  res.render("work", {isLoggedIn: req.session.isLoggedIn, work});
 });
     
-
-
-
-
-
-
-
-
+/* Display information about artist and artwork */
 router.get('/artist/:id', checkAuth, async (req, res) => {
   const [artist] = await db.query(
     `SELECT
@@ -132,6 +125,32 @@ router.get('/artist/:id', checkAuth, async (req, res) => {
   res.render('byArtist', {isLoggedIn: req.session.isLoggedIn,artist, artistInfo})
 });
 
+
+  
+  router.get('/random/', checkAuth, async(req,res) => {
+    
+    const [[random]] = await db.query(
+      `SELECT
+      artwork.id AS id,
+      artwork.name AS name,
+      artwork.image AS image,
+      artwork.description AS description,
+      artwork.medium AS med,
+      artwork.year AS year,
+      artwork.location AS loc,
+      artwork.collection AS coll
+      FROM artwork 
+      ORDER BY RAND() LIMIT 1`      
+      );
+  
+  res.render('random', {random})
+});
+
+
+
+
+
+/* External API - Chicago Art Institute */
 router.get("/aicapi", checkAuth, async(req, res) => {
 
   const response = await axios.get('https://api.artic.edu/api/v1/artworks?page=20&limit=20')

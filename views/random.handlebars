@@ -1,0 +1,21 @@
+{{> header}}
+<main>
+  <section id="artwork-container">
+   
+   <h1>Serendipitous Selection </h1>
+   <p>This page is used to pique your interest by showcasing a single artwork. You are encouraged to form your own interpretation and visit this piece when you visit the gallery. This also helps draw your attention to lesser-known artwork in the museum's collection. <span class="highlight"> Enjoy! </span> </p>
+   
+   <img src="/images/{{random.image}}" alt="{{random.name}}" class="workImg"/>
+   <form method="POST" action="/api/favorites?favorite_id={{artwork.id}}">
+       
+        <a href="/work/{{random.id}}">
+        <h3>Want to Learn More About This Piece?</h3>
+        </a>
+
+  
+   </form>
+   <br>
+  </section>
+  <a href="/" id="returnToStore">Return to Main Gallery</a>
+</main>
+{{> footer}}

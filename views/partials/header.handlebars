@@ -1,15 +1,17 @@
 <header>
   <a class="site-logo" href="/">
-    Gallery Walk - Find Your Favorites
+    <img src="/images/logo.png">
   </a>
  <div class="header-links">
     {{#if isLoggedIn}}
   <div class="header-links">
-    <a href="/api/favorites" class="favoritesLink">Favorites ({{favoritesCount}}) </a> 
+     <a href="/aicapi">Chicago Art Institute</a>
+     <a href="/random">Mystery Art</a>
+    <a href="/favorites" class="favoritesLink">Favorites ({{favoritesCount}}) </a> 
     <a href="/api/logout">Logout</a>
   </div>
   {{else}}
-  <a href="/aicapi">Chicago Art Institute</a>
+ 
     <a href="/login">Login</a>
     <a href="/signup">Sign Up</a>
   {{/if}}

@@ -5,7 +5,7 @@ const checkAuth = require("../middleware/auth");
 const db = require('../db');
 
 
-router.get('/', async (req, res) => {
+router.get("/",  async (req, res) => {
   const [rows] = await db.query(`SELECT
   artwork.id AS id,
   artist.name AS artist_name,
@@ -13,19 +13,42 @@ router.get('/', async (req, res) => {
   artwork.image AS image
   FROM artist
   INNER JOIN artwork ON artist.id=artwork.artist_id;`)
-  
-  const data = {items: rows, loggedIn: req.session.loggedIn}
 
-  if (req.session.loggedIn) {
+  const data = {items: rows, loggedIn: req.session.loggedIn}
+    if (req.session.isLoggedIn) {
     const [[{favoriteCount}]] = await db.query(
       `SELECT SUM(quantity) AS favoriteCount FROM favorites WHERE user_id=?;`,
       [req.session.userId]
     )
-    data.favoriteCount = favoriteCount || 0
+    data.favoriteCount =favoriteCount || 0
   }
 
- res.render('index', {rows, data});
-})
+
+  res.render("index", {rows});
+});
+
+
+// router.get('/', async ({session:{isLoggedIn}}), res) => {
+//   const [rows] = await db.query(`SELECT
+//   artwork.id AS id,
+//   artist.name AS artist_name,
+//   artwork.name AS name,
+//   artwork.image AS image
+//   FROM artist
+//   INNER JOIN artwork ON artist.id=artwork.artist_id;`)
+  
+//   const data = {items: rows, isloggedIn: req.session.loggedIn}
+
+//   if (req.session.isloggedIn) {
+//     const [[{favoriteCount}]] = await db.query(
+//       `SELECT SUM(quantity) AS favoriteCount FROM favorites WHERE user_id=?;`,
+//       [req.session.userId]
+//     )
+//     data.favoriteCount = favoriteCount || 0
+//   }
+
+//  res.render('index', {rows});
+// })
 
 
   router.get("/login", async (req, res) => {
@@ -38,11 +61,11 @@ router.get("/signup", async (req, res) => {
   res.render("signup", { error: req.query.error });
 });
 
-router.get("/private", checkAuth, ({ session: { isLoggedIn } }, res) => {
-  res.render("protected", { isLoggedIn });
-});
+// router.get("/private", checkAuth, ({ session: { isLoggedIn } }, res) => {
+//   res.render("protected", { isLoggedIn });
+// });
 
-router.get('/work/:id', async (req, res) => {
+router.get('/work/:id', checkAuth, async(req,res) => {
   const [[work]] = await db.query(
     `SELECT
     artist.name AS artist_name,
@@ -59,22 +82,26 @@ router.get('/work/:id', async (req, res) => {
     WHERE artwork.id=?;`,
     [req.params.id]
   )
-  const data = {items: work, loggedIn: req.session.loggedIn}
+ // const data = {items: work, isLoggedIn: req.session.loggedIn}
 
-  if (req.session.loggedIn) {
+//add isLoggedIn: req.session.loggedIn -
+
+//res.render("index", work) //isLoggedIn
+
+
+  if (req.session.isLoggedIn) {
     const [[{favoriteCount}]] = await db.query(
       `SELECT SUM(quantity) AS favoriteCount FROM favorites WHERE user_id=?;`,
       [req.session.userId]
     )
-    data.favoriteCount = favoriteCount || 0
+   // data.favoriteCount = favoriteCount || 0
   }
 
- res.render('work', {work, data});
+ res.render("work", {isLoggedIn: req.session.isLoggedIn, work});
 });
     
-
-
-router.get('/artist/:id', async (req, res) => {
+/* Display information about artist and artwork */
+router.get('/artist/:id', checkAuth, async (req, res) => {
   const [artist] = await db.query(
     `SELECT
     artwork.id AS id,
@@ -86,26 +113,50 @@ router.get('/artist/:id', async (req, res) => {
     INNER JOIN artwork ON artist.id=artwork.artist_id
     WHERE artist.id=?;`,
     [req.params.id]
+  );
+
+  const [[artistInfo]] = await db.query(
+    'SELECT * FROM artist WHERE id=?;',
+    [req.params.id]
   )
-  res.render('byArtist', {artist})
+
+   
+
+  res.render('byArtist', {isLoggedIn: req.session.isLoggedIn,artist, artistInfo})
 });
 
-router.get("/aicapi", async (req, res) => {
 
-  const response = await axios.get( 'https://api.artic.edu/api/v1/artworks?page=30&limit=20')
+  
+  router.get('/random/', checkAuth, async(req,res) => {
+    
+    const [[random]] = await db.query(
+      `SELECT
+      artwork.id AS id,
+      artwork.image AS image
+      FROM artwork 
+      ORDER BY RAND() LIMIT 1`      
+      );
+  
+  res.render('random', {isLoggedIn: req.session.isLoggedIn, random})
+});
+
+
+
+
+
+/* External API - Chicago Art Institute */
+router.get("/aicapi", checkAuth, async(req, res) => {
+
+  const response = await axios.get('https://api.artic.edu/api/v1/artworks?page=35&limit=20')
   console.log(response.data.data)
-  res.render('aicapi', { rows: response.data.data })
+  res.render('aicapi', { isLoggedIn: req.session.isLoggedIn, rows: response.data.data })
   
 });
 
-
+//ADD checkAuth, - isLoggedIn
 
 
 /* Create routes for favorites */
-
-
-
-
 
 router.get('/favorites', checkAuth, async (req, res) => {
   const[[favoriteArt]] = await db.query (
@@ -124,7 +175,7 @@ router.get('/favorites', checkAuth, async (req, res) => {
   )
 
 res.render('favorites', {
-  loggedIn: req.session.loggedIn,
+  isLoggedIn: req.session.isLoggedIn,
   favoriteArt
    })
 });

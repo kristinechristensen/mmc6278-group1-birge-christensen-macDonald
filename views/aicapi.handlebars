@@ -1,26 +1,26 @@
 {{> header}}
-  <main>
-    <h2>Sample Works from Chicago Art Institute</h2>
-    <section id="items">
-      {{#each rows}}
-      <a class="sale-item">
-        <div class="item-img-container">
-          <img src= {{thumbnail.lqip}} srcset={{thumbnail.lqip}} alt='{{thumbnail.alt_text}}' />
-        </div>
-        <!--<p>{{name}}</p> -->
-        <h3>{{title}}</h3>
-        <p>Artist: {{artist_display}}</p>
-        <p>Date Range on display: {{date_display}}</p>
-        {{#if publication_history}}
-        <p>Publication History:</p>
-        <p>{{publication_history}}</p>
-        {{/if}}
+ <main>
+          
+      <h2>Chicago Art Institute Favorite's Walk</h2>
+      <p class="introText">Marking your <span class="highlight"> &hearts; </span>favorite work <span class="highlight">&hearts;</span> before visiting the Chicago Art Institue is a great way to prepare for your visit, allows you to maximize your time at the museum, and helps you to create a personalized tour of the museum. Avoid wandering aimlessly through the galleries looking for pieces that you want to see and use this app to help you research and identify the works that interest you the most.</p>
+      
+ 
 
-      </a>
+    <section id="aicWorks">
+      {{#each rows}}       
+        <div class="item-img-container2">
+         <img src="https://www.artic.edu/iiif/2/{{image_id}}/full/843,/0/default.jpg" title="{{title}}" alt="{{title}}" class="aicWorkImg"/>
+        <p><span>Title:</span> {{title}}</p>
+        <p><span>Artist:</span> {{artist_display}}</p>
+        <p><span>Artwork Type:</span> {{artwork_type_title}}</p>
+        <p><span>Collection:</span> {{department_title}}</p>
+       </div>
       {{/each}}
     </section>
+  <p>  <a href="/" id="returnToStore">Return to Main Gallery</a></p>
   </main>
-  <footer>
-    <p>&copy; Art Repo</p>
-  </footer>
+
+{{> footer}}
+
+
 

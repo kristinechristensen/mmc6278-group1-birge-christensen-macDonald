@@ -147,7 +147,7 @@ router.get('/artist/:id', checkAuth, async (req, res) => {
 /* External API - Chicago Art Institute */
 router.get("/aicapi", checkAuth, async(req, res) => {
 
-  const response = await axios.get('https://api.artic.edu/api/v1/artworks?page=20&limit=20')
+  const response = await axios.get('https://api.artic.edu/api/v1/artworks?page=35&limit=20')
   console.log(response.data.data)
   res.render('aicapi', { isLoggedIn: req.session.isLoggedIn, rows: response.data.data })
   

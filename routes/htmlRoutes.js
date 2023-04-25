@@ -132,13 +132,7 @@ router.get('/artist/:id', checkAuth, async (req, res) => {
     const [[random]] = await db.query(
       `SELECT
       artwork.id AS id,
-      artwork.name AS name,
-      artwork.image AS image,
-      artwork.description AS description,
-      artwork.medium AS med,
-      artwork.year AS year,
-      artwork.location AS loc,
-      artwork.collection AS coll
+      artwork.image AS image
       FROM artwork 
       ORDER BY RAND() LIMIT 1`      
       );

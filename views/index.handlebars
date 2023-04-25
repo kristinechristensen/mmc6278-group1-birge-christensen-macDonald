@@ -1,12 +1,12 @@
 {{> header}}
   <main>
     <h2>Welcome to the Gallery Walk</h2>
-    <p>Use the gallery below to mark the pieces of artwork that you would like to see when visiting our museum! All you need to do is click on the piece for more information and add it to your favorites and a guide will be developed for you.</p>
+    <p class="introText">Use the gallery below to mark the pieces of artwork that you would like to see when visiting our museum! All you need to do is click on the piece for more information and add it to your favorites and a guide will be developed for you.</p>
     <section id="workItems">
       {{#each rows}}
-      <a href="/work/{{id}}" class="sale-item">
+      <a href="/work/{{id}}">
         <div class="item-img-container">
-          <img src="/images/{{image}}" alt='{{name}}' />
+          <img src="/images/{{image}}" alt='{{name}}' class="workBorder"/>
         </div>
      <!--   <p>{{name}}</p> -->
         <p>{{artist_name}}</p>
@@ -14,6 +14,4 @@
       {{/each}}
     </section>
   </main>
-  <footer>
-    <p>&copy; Art Repo</p>
-  </footer>
+{{> footer}}

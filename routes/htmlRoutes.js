@@ -15,7 +15,7 @@ router.get("/",  async (req, res) => {
   INNER JOIN artwork ON artist.id=artwork.artist_id;`)
 
   const data = {items: rows, loggedIn: req.session.loggedIn}
-    if (req.session.isLoggedIn) {
+    if (req.session.loggedIn) {
     const [[{favoriteCount}]] = await db.query(
       `SELECT SUM(quantity) AS favoriteCount FROM favorites WHERE user_id=?;`,
       [req.session.userId]
@@ -24,7 +24,7 @@ router.get("/",  async (req, res) => {
   }
 
 
-  res.render("index", {rows});
+  res.render("index", {isLoggedIn: req.session.isLoggedIn, rows});
 });
 
 

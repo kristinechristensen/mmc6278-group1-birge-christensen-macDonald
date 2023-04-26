@@ -24,7 +24,7 @@ router.get("/",  async (req, res) => {
   }
 
 
-  res.render("index", {rows});
+  res.render("index", {isLoggedIn: req.session.isLoggedIn, rows});
 });
 
 
@@ -70,6 +70,7 @@ router.get('/work/:id', checkAuth, async(req,res) => {
     `SELECT
     artist.name AS artist_name,
     artwork.artist_id AS artist_id,
+    artwork.id AS id,
     artwork.name AS name,
     artwork.image AS image,
     artwork.description AS description,
@@ -158,25 +159,35 @@ router.get("/aicapi", checkAuth, async(req, res) => {
 
 /* Create routes for favorites */
 
-router.get('/favorites', checkAuth, async (req, res) => {
-  const[[favoriteArt]] = await db.query (
-    `SELECT favorites.id AS favorite_id, 
-    artist.name AS artist_name,
-    artwork.name AS artwork_name, 
-    artwork.image AS image, 
-    artwork.location AS location, 
-    artwork.collection AS collection, 
-    artist.name AS artist_name
-    FROM favorites 
-      INNER JOIN artwork ON artwork.id = favorites.artwork_id
-      INNER JOIN artist ON artist.id = artwork.artist_id
-      WHERE favorites.user_id=?`,
-      [req.session.userId]
+router.get('/favorite', checkAuth, async (req, res) => {
+  const [[favId]] = await db.query (
+    `SELECT favoriteId FROM users WHERE id=?`,
+    [req.session.userId]
   )
 
-res.render('favorites', {
+  console.log(favId)
+
+  const [[work]] = await db.query(
+    `SELECT
+    artist.name AS artist_name,
+    artwork.artist_id AS artist_id,
+    artwork.id AS id,
+    artwork.name AS name,
+    artwork.image AS image,
+    artwork.description AS description,
+    artwork.medium AS med,
+    artwork.year AS year,
+    artwork.location AS loc,
+    artwork.collection AS coll
+    FROM artist
+    INNER JOIN artwork ON artist.id=artwork.artist_id
+    WHERE artwork.id=?;`,
+    [favId.favoriteId]
+  )
+
+res.render('work', {
   isLoggedIn: req.session.isLoggedIn,
-  favoriteArt
+  work
    })
 });
 
